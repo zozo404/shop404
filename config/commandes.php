@@ -1,8 +1,8 @@
 <?php
 
-function ajouter($nom,$image,$prix,$desc){
+function ajouter($nom,$image,$alt,$prix,$desc){
     if(require("connexion.php")){
-        $req = $access->prepare("INSERT INTO produits (image, nom, prix, description) VALUE ($image,$nom,$prix,$desc)");
+        $req = $access->prepare("INSERT INTO produits (image, alt, nom, prix, description) VALUE ($image,$alt,$nom,$prix,$desc)");
         $req->execute(array($nom,$image,$prix,$desc));
         $req->closeCursor();
     }
