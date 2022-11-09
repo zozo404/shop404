@@ -52,7 +52,7 @@ $Produits=afficher();
     <div class="flex flex-col flex-wrap lg:flex-row items-center lg:justify-evenly mt-5">
         <!-- card des produits et debut boucle-->
         <?php foreach($Produits as $produit): ?>
-        <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">
+        <div class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">
             <a href="#" class="flex justify-center">
                 <img class="w-11/12" src="./imgs/<?=$produit->image ?>" alt="<?=$produit->alt ?>" />
             </a>
