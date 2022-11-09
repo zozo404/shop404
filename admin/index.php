@@ -33,7 +33,7 @@ if(isset($_POST['valider'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop 404 - Admin</title>
-    <link rel="icon" type="image/x-icon" href="imgs/ballon-dor.png">
+    <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 
@@ -43,7 +43,7 @@ if(isset($_POST['valider'])){
     <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="../index.php" class="flex items-center">
-                <img src="imgs/ballon-dor.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
+                <img src="../imgs/ballon-dor.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Shop 404</span>
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
