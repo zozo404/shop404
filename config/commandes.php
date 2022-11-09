@@ -1,5 +1,20 @@
 <?php
 
+function getAdmin($email,$password){
+    if(require("connexion.php")){
+        $req = $access->prepare("SELECT * FROM admin WHERE email = ? AND password = ?");
+        $req->execute(array($email,$password));
+
+        if($req->rowCount() == 1){
+            $data = $req->fetch();
+            return $data;
+        }else{
+            return false;
+        }
+        
+        $req->closeCursor();
+    }
+}
 function ajouter($nom,$image,$alt,$prix,$desc){
     if(require("connexion.php")){
         $req = $access->prepare("INSERT INTO produits (image, alt, nom, prix, description) VALUE ('$image','$alt','$nom',$prix,'$desc')");
