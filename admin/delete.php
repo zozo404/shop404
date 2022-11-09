@@ -1,26 +1,25 @@
 <?php
 // on exige le ficher commande
 require("../config/commandes.php");
+$Produits=afficher();
+
 
 if(isset($_POST['valider'])){
 
-  if(isset($_POST['image']) and isset($_POST['alt']) and isset($_POST['nom']) and isset($_POST['prix']) and isset($_POST['desc'])){
+  if(isset($_POST['idproduit'])){
 
-    // on verifite avant de faire la methode post si tous les champs ne sont pas vides
-    if(!empty($_POST['image']) and !empty($_POST['alt']) and !empty($_POST['nom']) and !empty($_POST['prix']) and !empty($_POST['desc'])){
+    // on verifite avant de faire la methode post si tous les champs ne sont pas vides et qu'ils sont des caractères numériques
+    if(!empty($_POST['idproduit']) and is_numeric($_POST['idproduit'])){
 
-      $image=htmlspecialchars(strip_tags($_POST['image']));
-      $alt=htmlspecialchars(strip_tags($_POST['alt']));
-      $nom=htmlspecialchars(strip_tags($_POST['nom']));
-      $prix=htmlspecialchars(strip_tags($_POST['prix']));
-      $desc=htmlspecialchars(strip_tags($_POST['desc']));
+      $idproduit=htmlspecialchars(strip_tags($_POST['idproduit']));
 
       try{
-        ajouter($nom,$image,$alt,$prix,$desc);
+        supprimer($idproduit);
       }
       catch(PDOException $e){
         echo "ERROR: ".$e->getMessage()."<br>"; 
       }
+      header('Location: delete.php');
     }
   }
 }
@@ -55,62 +54,56 @@ if(isset($_POST['valider'])){
                     <a href="../index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
                     </li>
                     <li>
-                    <a href="delete.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Supprimer</a>
+                    <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                    </li>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     
-      <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+      <div>
         <form class="mt-4" method="POST">
           <div class="flex flex-col items-center justify-center lg:justify-start">            
-          <!-- Image input -->
-          <div class="mb-6">
-            <input
-              type="name"
-              class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              name="image"
-              placeholder="Titre de l'image"
-            />
-            <input type="name" class=" mt-2 block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            name="alt"
-            placeholder="Alt de l'image"/>
-          </div>
-          <!-- Nom produit input -->
-          <div class="mb-6">
-            <input
-              type="text"
-              class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              name="nom"
-              placeholder="Nom du produit"
-            />
-          </div>
-          <!-- Prix input -->
+          <!-- id du produit input -->
           <div class="mb-6">
             <input
               type="number"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              name="prix"
-              placeholder="Prix du produit en €"
+              name="idproduit"
+              placeholder="Identifiant du produit"
             />
           </div>
-          <!-- Description input -->
-          <div class="mb-6">
-            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Description du produit</p>
-            <textarea class="block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-40 w-80" required cols="20rem" rows="10rem" name="desc"></textarea>
-          </div>
-
+          
           <div class="text-center">
             <button
               type="submit"
               name="valider"
               class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             >
-              Ajouter un nouveau produit
+              Supprimer le produit
             </button>
           </div>
         </form>
+      </div>
+      <div class="flex flex-col lg:flex-row items-center mt-5 gap-2 lg:justify-center">
+            <!-- card des produits et debut boucle-->
+            <?php foreach($Produits as $produit): ?>
+            <div class="w-60 max-h-80 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">
+                <a href="#" class="flex justify-center">
+                    <img class="w-11/12" src="../imgs/<?=$produit->image ?>" alt="<?=$produit->alt ?>" />
+                </a>
+                <div class="p-5">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"><?=$produit->nom ?></h5>
+                    <p class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">id: <?=$produit->id ?></p>
+                    <div class="flex justify-between items-center py-2 px-3 text-sm font-medium text-center text-white">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <?php endforeach ?>
+            <!-- fin boucle -->
       </div>
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
