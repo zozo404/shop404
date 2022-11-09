@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+// double vérification 1. si elle existe mais c'est faux -> redirection 2. si elle existe mais c'est vide -> redirection
+if(!isset($_SESSION['zozoy001'])){
+  header("Location: ../login.php");
+}
+if(empty($_SESSION['zozoy001'])){
+  header("Location: ../login.php");
+}
+
 // on exige le ficher commande
 require("../config/commandes.php");
 
