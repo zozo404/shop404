@@ -50,7 +50,7 @@ $Produits=afficher();
             </div>
         </div>
     </nav>
-    <div class="flex flex-col flex-wrap lg:flex-row items-center lg:justify-evenly mt-5">
+    <div class="flex flex-wrap lg:flex-row items-center justify-evenly mt-5 gap-2">
         <!-- card des produits et debut boucle-->
         <?php foreach($Produits as $produit): ?>
         <div class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">

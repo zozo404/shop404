@@ -1,4 +1,6 @@
 <?php
+require("../config/commandesName.php");
+$Name=getName('$pseudo');
 session_start();
 
 // double vérification 1. si elle existe mais c'est faux -> redirection 2. si elle existe mais c'est vide -> redirection
@@ -64,10 +66,13 @@ if(isset($_POST['valider'])){
                     <a href="../index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
                     </li>
                     <li>
-                    <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                    <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ajouter</a>
                     </li>
                     </li>
                 </ul>
+                <?php foreach($Name as $pseudo): ?>
+                <p class="text-white">Bienvenue <?=$pseudo->pseudo ?></p>
+                <?php endforeach ?>
             </div>
         </div>
     </nav>
@@ -96,7 +101,7 @@ if(isset($_POST['valider'])){
           </div>
         </form>
       </div>
-      <div class="flex flex-col lg:flex-row items-center mt-5 gap-2 lg:justify-center">
+      <div class="flex flex-wrap lg:flex-row items-center mt-5 gap-2 justify-center">
             <!-- card des produits et debut boucle-->
             <?php foreach($Produits as $produit): ?>
             <div class="w-60 max-h-80 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">
