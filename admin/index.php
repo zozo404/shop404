@@ -1,4 +1,6 @@
 <?php
+require("../config/commandesName.php");
+$Name=getName('$pseudo');
 session_start();
 
 // double vérification 1. si elle existe mais c'est faux -> redirection 2. si elle existe mais c'est vide -> redirection
@@ -72,7 +74,9 @@ if(isset($_POST['valider'])){
                     <a href="deconnexion.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Se déconnecter</a>
                     </li>
                 </ul>
-              <p class="text-white">Bienvenue </p>
+                <?php foreach($Name as $pseudo): ?>
+                <p class="text-white">Bienvenue <?=$pseudo->pseudo ?></p>
+                <?php endforeach ?>
             </div>
         </div>
     </nav>
