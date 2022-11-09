@@ -14,7 +14,7 @@ if(isset($_POST['valider'])){
           $_SESSION['zozoy001'] = $admin;
           header("Location: admin/index.php");
       }else{
-          echo "<p class='text-red-700 bg-slate-800 p-2 rounded-md'>Problème de connexion, veuillez réessayer.</p>";
+          echo "<div class='w-full flex justify-center'><p class='text-red-700 bg-slate-800 p-2 rounded-md'>Problème de connexion, veuillez réessayer.</p></div>";
       }
   }
 }
