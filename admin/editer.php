@@ -52,6 +52,7 @@ foreach($produits as $produit){
     $id = $produit->id;
     $nom = $produit->nom;
     $image = $produit->image;
+    $alt = $produit->alt;
     $prix = $produit->prix;
     $desc = $produit->description;
 }
@@ -108,13 +109,14 @@ foreach($produits as $produit){
             </div>
         </div>
     </nav>
-      <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+      <div class="mb-12 md:mb-0">
         <!-- formulaire ajout de produit -->
         <form class="mt-4" method="POST">
-          <div class="flex flex-col items-center justify-center lg:justify-start">            
+          <div class="flex flex-wrap items-baseline justify-center gap-8">            
           
           <!-- Nom produit input -->
           <div class="mb-6">
+          <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom du produit</p>
             <input
               type="text"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -126,17 +128,35 @@ foreach($produits as $produit){
           </div>
           <!-- Image input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom de l'image du produit</p>
+                <input
+                required
+                type="name"
+                class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="image"
+                placeholder="Titre de l'image (.png)"
+                value="<?= $image ?>"
+                />
+          </div>
+            <!-- alt de l'image  input -->
+          <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Alt de l'image du produit</p>
             <input
               required
               type="name"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="image"
               placeholder="Titre de l'image (.png)"
-              value="<?= $image ?>"
+              value="<?= $alt ?>"
             />
+            <div class="mb-6 ">
+                <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Image du produit</p>
+                <img class="w-60" src="../imgs/<?= $image ?>" alt="<?= $alt ?>">
+            </div>
           </div>
           <!-- Prix input -->
           <div class="mb-6">
+          <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix du produit</p>
             <input
               type="number"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -152,7 +172,11 @@ foreach($produits as $produit){
             <textarea class="block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-40 w-80" required cols="20rem" rows="10rem" name="desc"><?= $desc ?></textarea>
           </div>
 
-          <div class="text-center">
+          
+        </form>
+        
+      </div>
+      <div class="text-center">
             <button
               type="submit"
               name="valider"
@@ -161,8 +185,6 @@ foreach($produits as $produit){
              Modifier le produit
             </button>
           </div>
-        </form>
-      </div>
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
 </html>
