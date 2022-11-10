@@ -26,6 +26,8 @@ if(empty($_SESSION['zozoy001'])){
     <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
 
 
 </head>
@@ -86,7 +88,9 @@ if(empty($_SESSION['zozoy001'])){
                     <td class="flex justify-center py-4"><img src="../imgs/<?= $produit->image ?>" alt="<?= $produit->alt ?>" class="w-36"></td>
                     <td><?= $produit->prix ?> €</td>
                     <td class="text-start"><?=substr($produit->description,0,100);?>...</td>
-                    <td class="text-center"><a href="editer.php">Editer</a></td>
+                    <td class="text-center">
+                        <a href="editer.php?pdt=<?= $produit->id ?>"><i class="fa fa-pencil text-green-500"></i></a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
                 <!-- fin boucle foreach -->
