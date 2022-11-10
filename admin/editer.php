@@ -11,8 +11,6 @@ if(empty($_SESSION['zozoy001'])){
   header("Location: ../login.php");
 }
 
-// on exige le ficher commande
-require("../config/commandes.php");
 
 if(isset($_POST['valider'])){
 
@@ -35,6 +33,27 @@ if(isset($_POST['valider'])){
       }
     }
   }
+}
+
+// si pdt a pas ete renseigné on va faire une redirection pour annulé
+if(!isset($_GET['pdt'])){
+    header("Location: afficher.php");
+}
+// s'il est vide on va faire une redirection pour annulé
+if(empty($_GET['pdt'])AND !is_numeric($_GET['pdt'])){
+    header("Location: afficher.php");
+}
+$id= $_GET['pdt'];
+// on exige le ficher commande
+require("../config/commandes.php");
+$produits=getProduit($id);
+
+foreach($produits as $produit){
+    $id = $produit->id;
+    $nom = $produit->nom;
+    $image = $produit->image;
+    $prix = $produit->prix;
+    $desc = $produit->description;
 }
 ?>
 
@@ -68,7 +87,7 @@ if(isset($_POST['valider'])){
                     <a href="../index.php" class="block py-2 pr-4 pl-3 dark:text-gray-400 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
                     </li>
                     <li>
-                    <a href="index.php" class="block py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ajouter</a>
+                    <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ajouter</a>
                     </li>
                     <li>
                     <a href="delete.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Supprimer</a>
@@ -77,7 +96,7 @@ if(isset($_POST['valider'])){
                     <a href="afficher.php" class="block py-2 pr-4 pl-3 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Produits</a>
                     </li>
                     <li>
-                    <a href="editer.php" class="block py-2 pr-4 pl-3 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Editer</a>
+                    <a href="editer.php" class="block py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Editer</a>
                     </li>
                     <li>
                     <a href="deconnexion.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Se déconnecter</a>
@@ -89,26 +108,11 @@ if(isset($_POST['valider'])){
             </div>
         </div>
     </nav>
-    
       <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
         <!-- formulaire ajout de produit -->
         <form class="mt-4" method="POST">
           <div class="flex flex-col items-center justify-center lg:justify-start">            
-          <!-- Image input -->
-          <div class="mb-6">
-            <input
-              required
-              type="name"
-              class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              name="image"
-              placeholder="Titre de l'image (.png)"
-            />
-            <input type="name" class=" mt-2 block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            name="alt"
-            placeholder="Alt de l'image"
-            required
-            />
-          </div>
+          
           <!-- Nom produit input -->
           <div class="mb-6">
             <input
@@ -117,6 +121,18 @@ if(isset($_POST['valider'])){
               name="nom"
               placeholder="Nom du produit"
               required
+              value="<?= $nom ?>"
+            />
+          </div>
+          <!-- Image input -->
+          <div class="mb-6">
+            <input
+              required
+              type="name"
+              class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              name="image"
+              placeholder="Titre de l'image (.png)"
+              value="<?= $image ?>"
             />
           </div>
           <!-- Prix input -->
@@ -127,21 +143,22 @@ if(isset($_POST['valider'])){
               name="prix"
               placeholder="Prix du produit en €"
               required
+              value="<?= $prix ?>"
             />
           </div>
           <!-- Description input -->
           <div class="mb-6">
             <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Description du produit</p>
-            <textarea class="block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-40 w-80" required cols="20rem" rows="10rem" name="desc"></textarea>
+            <textarea class="block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-40 w-80" required cols="20rem" rows="10rem" name="desc"><?= $desc ?></textarea>
           </div>
 
           <div class="text-center">
             <button
               type="submit"
               name="valider"
-              class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+              class="inline-block px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
             >
-              Ajouter un nouveau produit
+             Modifier le produit
             </button>
           </div>
         </form>

@@ -49,7 +49,7 @@ $Produits=afficher();
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?=$produit->nom ?></h5>
                 </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?=substr($produit->description,0,200);?></p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?=substr($produit->description,0,60);?>...</p>
                 <a href="#" class="flex justify-between items-center py-2 px-3 text-sm font-medium text-center text-white">
                     <div class="flex space-x-2 justify-center">
                         <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Ajouter au panier</button>
