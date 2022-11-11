@@ -44,7 +44,7 @@ if(isset($_POST['valider'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop 404 - Admin</title>
+    <title>Shop 404 - Ajouter</title>
     <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
@@ -65,10 +65,19 @@ if(isset($_POST['valider'])){
             <div class="hidden w-full md:block md:w-auto lg:flex lg:items-center lg:gap-12" id="navbar-default">
                 <ul class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                    <a href="../index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
+                    <a href="../index.php" class="block py-2 pr-4 pl-3 dark:text-gray-400 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                    <a href="index.php" class="block py-2 pr-4 pl-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ajouter</a>
                     </li>
                     <li>
                     <a href="delete.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Supprimer</a>
+                    </li>
+                    <li>
+                    <a href="afficher.php" class="block py-2 pr-4 pl-3 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Produits</a>
+                    </li>
+                    <li>
+                    <a href="editer.php" class="block py-2 pr-4 pl-3 text-gray-700 dark:text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Editer</a>
                     </li>
                     <li>
                     <a href="deconnexion.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Se déconnecter</a>
@@ -82,36 +91,46 @@ if(isset($_POST['valider'])){
     </nav>
     
       <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+        <!-- formulaire ajout de produit -->
         <form class="mt-4" method="POST">
           <div class="flex flex-col items-center justify-center lg:justify-start">            
           <!-- Image input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom de l'image du produit (.png)</p>
             <input
+              required
               type="name"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="image"
-              placeholder="Titre de l'image (.png)"
+              placeholder="Nom de l'image (.png)"
             />
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Alt de l'image du produit</p>
             <input type="name" class=" mt-2 block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             name="alt"
-            placeholder="Alt de l'image"/>
+            placeholder="Alt de l'image"
+            required
+            />
           </div>
           <!-- Nom produit input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Titre du produit</p>
             <input
               type="text"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="nom"
-              placeholder="Nom du produit"
+              placeholder="Titre du produit"
+              required
             />
           </div>
           <!-- Prix input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix du produit</p>
             <input
               type="number"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="prix"
               placeholder="Prix du produit en €"
+              required
             />
           </div>
           <!-- Description input -->
