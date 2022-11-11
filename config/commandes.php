@@ -1,5 +1,16 @@
 <?php
 
+function modifier($image, $nom, $prix, $desc, $id)
+{
+  if(require("connexion.php"))
+  {
+    $req = $access->prepare("UPDATE produits SET `image` = ?, nom = ?, prix = ?, description = ? WHERE id=?");
+
+    $req->execute(array($image, $nom, $prix, $desc, $id));
+
+    $req->closeCursor();
+  }
+}
 function getProduit($id){
     if(require("connexion.php")){
         $req = $access->prepare("SELECT * FROM produits WHERE id = ?");
@@ -33,7 +44,7 @@ function getAdmin($email,$password){
 function ajouter($nom,$image,$alt,$prix,$desc){
     if(require("connexion.php")){
         $req = $access->prepare("INSERT INTO produits (image, alt, nom, prix, description) VALUE ('$image','$alt','$nom',$prix,'$desc')");
-        $req->execute(array($nom,$image,$prix,$desc));
+        $req->execute(array($nom,$image,$prix,$desc,$alt));
         $req->closeCursor();
     }
 }

@@ -32,45 +32,11 @@ if(isset($_GET['id'])){
     }
 }
 
-if(isset($_POST['valider']))
-{
-    if(isset($_POST['image']) AND isset($_POST['nom']) AND isset($_POST['prix']) AND isset($_POST['desc']))
-    {
-    if(!empty($_POST['image']) AND !empty($_POST['nom']) AND !empty($_POST['prix']) AND !empty($_POST['desc']))
-        {
-            $image = htmlspecialchars(strip_tags($_POST['image']));
-            $nom = htmlspecialchars(strip_tags($_POST['nom']));
-            $prix = htmlspecialchars(strip_tags($_POST['prix']));
-            $desc = htmlspecialchars(strip_tags($_POST['desc']));
-        
-            if(isset($_GET['id'])){
-
-                if(!empty($_GET['id']) OR is_numeric($_GET['id']))
-                {
-                    $id = $_GET['id'];
-                }
-            }
-
-        try 
-        {
-            modifier($image, $nom, $prix, $desc, $id);
-            header('Location: afficher.php');
-        } 
-        catch (Exception $e) 
-        {
-            $e->getMessage();
-        }
-
-        }
-    }
-}
-
-
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,9 +45,10 @@ if(isset($_POST['valider']))
     <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+
+
 </head>
 <body class="bg-gray-700">
-
     <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="../index.php" class="flex items-center">
@@ -119,31 +86,69 @@ if(isset($_POST['valider']))
             </div>
         </div>
     </nav>
-      
-    <div class="mb-12 md:mb-0">
+      <div class="mb-12 md:mb-0">
         <!-- formulaire ajout de produit -->
-
-      <?php foreach ($Produits as $produit): ?>
-              
-          <form method="post" class="flex flex-col items-center">
-            <div class="mb-6 w-80">
-                <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">L'image du produit (.png)</label>
-                <input type="name" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="image" value="<?= $produit->image ?>" required>
-
+        <?php foreach ($Produits as $produit): ?>
+          <form class="mt-4" method="POST">
+            <div class="flex flex-col flex-wrap items-center justify-center">            
+            
+            <!-- Nom produit input -->
+            <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom du produit</p>
+              <input
+                type="text"
+                class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="nom"
+                placeholder="Nom du produit"
+                required
+                value="<?= $produit->nom ?>"
+              />
             </div>
-            <div class="mb-6 w-80">
-                <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom du produit</label>
-                <input type="text" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="nom" value="<?= $produit->nom ?>"  required>
+            <!-- Image input -->
+            <div class="mb-6">
+              <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom de l'image du produit</p>
+                  <input
+                  required
+                  type="name"
+                  class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  name="image"
+                  placeholder="Titre de l'image (.png)"
+                  value="<?= $produit->image ?>"
+                  />
             </div>
-
-            <div class="mb-6 w-80">
-                <label  class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix</label>
-                <input type="number" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="prix" value="<?= $produit->prix ?>" required>
+              <!-- alt de l'image  input -->
+            <div class="mb-6">
+              <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Alt de l'image du produit</p>
+              <input
+                required
+                type="name"
+                class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="image"
+                placeholder="Titre de l'image (.png)"
+                value="<?= $produit->alt ?>"
+              />
+              <!-- rendu de l'image -->
+              <div class="mb-6 ">
+                  <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Image du produit</p>
+                  <img class="w-60" src="../imgs/<?=$produit->image ?>" alt="<?=$produit->alt ?>">
+              </div>
             </div>
-
-            <div class="mb-6 w-80">
-                <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Description</label>
-                <textarea rows="7rem" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="desc" required><?= $produit->description ?></textarea>
+            <!-- Prix input -->
+            <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix du produit</p>
+              <input
+                type="number"
+                class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                name="prix"
+                placeholder="Prix du produit en €"
+                required
+                value="<?= $produit->prix ?>"
+              />
+            </div>
+            <!-- Description input -->
+            <div class="mb-6">
+              <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Description du produit</p>
+              <textarea class="block px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-40 w-80" required cols="20rem" rows="10rem" name="desc"><?= $produit->description ?></textarea>
             </div>
 
             <div class="text-center pb-4">
@@ -152,15 +157,47 @@ if(isset($_POST['valider']))
                     name="valider"
                     class="inline-block px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
-                    Modifier le produit
+                  Modifier le produit
                   </button>
             </div>
-          </form>
-
-      <?php endforeach; ?>
-
-    </div>
-
+          
+         </form>
+        <?php endforeach; ?>
+        
+      </div>
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
 </html>
+<?php
+if(isset($_POST['valider'])){
+
+  if(isset($_POST['image']) and isset($_POST['alt']) and isset($_POST['nom']) and isset($_POST['prix']) and isset($_POST['desc'])){
+
+    // on verifite avant de faire la methode post si tous les champs ne sont pas vides
+    if(!empty($_POST['image']) and !empty($_POST['alt']) and !empty($_POST['nom']) and !empty($_POST['prix']) and !empty($_POST['desc'])){
+
+      $image=htmlspecialchars(strip_tags($_POST['image']));
+      $alt=htmlspecialchars(strip_tags($_POST['alt']));
+      $nom=htmlspecialchars(strip_tags($_POST['nom']));
+      $prix=htmlspecialchars(strip_tags($_POST['prix']));
+      $desc=htmlspecialchars(strip_tags($_POST['desc']));
+
+      if(isset($_GET['id'])){
+    
+        if(!empty($_GET['id']) OR is_numeric($_GET['id']))
+        {
+            $id = $_GET['id'];
+        }
+      }
+
+      try{
+        modifier($nom,$image,$alt,$prix,$desc,$id);
+        header('Location: afficher.php');
+      }
+      catch(PDOException $e){
+        echo "ERROR: ".$e->getMessage()."<br>"; 
+      }
+    }
+  }
+}
+?>

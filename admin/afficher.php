@@ -92,7 +92,7 @@ if(empty($_SESSION['zozoy001'])){
                     <td><?= $produit->prix ?> €</td>
                     <td class="text-start"><?=substr($produit->description,0,100);?>...</td>
                     <td class="text-center">
-                        <a href="editer.php?pdt=<?= $produit->id ?>"><i class="fa fa-pencil text-green-500"></i></a>
+                        <a href="editer.php?id=<?= $produit->id ?>"><i class="fa fa-pencil text-green-500"></i></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
