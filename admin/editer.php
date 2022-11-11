@@ -75,7 +75,7 @@ if(isset($_POST['valider']))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop 404 - Admin</title>
+    <title>Shop 404 - Editer</title>
     <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
@@ -126,21 +126,31 @@ if(isset($_POST['valider']))
       <?php foreach ($Produits as $produit): ?>
               
           <form method="post" class="flex flex-col items-center">
-            <div class="mb-6 w-80">
+            <!-- Nom image produit input en .png pour fond transparent-->
+            <!-- Impossible de modifier alt de l'image ici, le faire en BDD -->
+            <div class="mb-6 w-80 text-center">
                 <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">L'image du produit (.png)</label>
                 <input type="name" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="image" value="<?= $produit->image ?>" required>
-
+              <small class="text-white italic text-base">NB: Pour modifier l'alt de l'image, veuillez le faire directement en Base de Données.</small>
             </div>
+            <!-- Image du produit -->
+            <div class="mb-6 ">
+                  <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Image du produit</p>
+                  <img class="w-60" src="../imgs/<?=$produit->image ?>" alt="<?=$produit->alt ?>">
+              </div>
+            <!-- Nom input -->
             <div class="mb-6 w-80">
                 <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom du produit</label>
                 <input type="text" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="nom" value="<?= $produit->nom ?>"  required>
             </div>
 
+            <!-- Prix input -->
             <div class="mb-6 w-80">
                 <label  class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix</label>
                 <input type="number" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="prix" value="<?= $produit->prix ?>" required>
             </div>
 
+            <!-- Description input -->
             <div class="mb-6 w-80">
                 <label class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Description</label>
                 <textarea rows="7rem" class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" name="desc" required><?= $produit->description ?></textarea>

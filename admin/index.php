@@ -44,7 +44,7 @@ if(isset($_POST['valider'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop 404 - Admin</title>
+    <title>Shop 404 - Ajouter</title>
     <link rel="icon" type="image/x-icon" href="../imgs/ballon-dor.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
@@ -96,13 +96,15 @@ if(isset($_POST['valider'])){
           <div class="flex flex-col items-center justify-center lg:justify-start">            
           <!-- Image input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Nom de l'image du produit (.png)</p>
             <input
               required
               type="name"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="image"
-              placeholder="Titre de l'image (.png)"
+              placeholder="Nom de l'image (.png)"
             />
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Alt de l'image du produit</p>
             <input type="name" class=" mt-2 block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             name="alt"
             placeholder="Alt de l'image"
@@ -111,16 +113,18 @@ if(isset($_POST['valider'])){
           </div>
           <!-- Nom produit input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Titre du produit</p>
             <input
               type="text"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               name="nom"
-              placeholder="Nom du produit"
+              placeholder="Titre du produit"
               required
             />
           </div>
           <!-- Prix input -->
           <div class="mb-6">
+            <p class="text-center text-white block w-full px-4 py-2 text-xl font-normal bg-clip-padding">Prix du produit</p>
             <input
               type="number"
               class="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
