@@ -69,5 +69,3 @@ function supprimer($id){
 
     }
 }
-
-?>
