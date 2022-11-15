@@ -5,11 +5,7 @@ session_start();
 
 require("../config/commandes.php");
 
-if (!isset($_SESSION['zozoy001'])) {
-    header("Location: ../login.php");
-}
-
-if (empty($_SESSION['zozoy001'])) {
+if (!isset($_SESSION['zozoy001']) || empty($_SESSION['zozoy001'])) {
     header("Location: ../login.php");
 }
 
