@@ -13,8 +13,6 @@ if (isset($_POST['valider'])) {
 
       $email = htmlspecialchars(strip_tags($_POST['email'], FILTER_VALIDATE_EMAIL));
       $password = password_hash(strip_tags($_POST['password']), PASSWORD_BCRYPT);
-
-
       try {
         addUser($email, $password);
       } catch (PDOException $e) {
