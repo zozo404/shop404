@@ -3,27 +3,27 @@ session_start();
 // on inclut le fichier commandes avec un include
 include "config/commandes.php";
 
+// inscription
 if (isset($_POST['valider'])) {
-  if (!empty($_POST['email']) and !empty($_POST['password'])) {
-    $email = htmlspecialchars($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $password = htmlspecialchars($_POST['password']);
 
-    $admin = getAdmin($email, $password);
-    $user = getUser($email,$password);
+  if (isset($_POST['email']) and isset($_POST['password'])) {
 
-    if ($admin) {
-      $_SESSION['zozoy001'] = $admin;
-      header("Location: admin/index.php");
-    } elseif($user){
-      $_SESSION['user001'] = $user;
-      header("Location: /index.php");
-    }
-    else {
-      echo "<div class='w-full flex justify-center'><p class='text-red-700 bg-slate-800 p-2 rounded-md'>Problème de connexion, veuillez réessayer.</p></div>";
+    // on verifite avant de faire la methode post si tous les champs ne sont pas vides
+    if (!empty($_POST['email']) and !empty($_POST['password'])) {
+
+      $email = htmlspecialchars(strip_tags($_POST['email'], FILTER_VALIDATE_EMAIL));
+      $password = password_hash(strip_tags($_POST['password']), PASSWORD_BCRYPT);
+
+
+      try {
+        addUser($email, $password);
+      } catch (PDOException $e) {
+        echo "ERROR: " . $e->getMessage() . "<br>";
+      }
     }
   }
 }
-
+// fin inscription
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -62,7 +62,7 @@ if (isset($_POST['valider'])) {
       </div>
     </div>
   </nav>
-  <h1 class="text-center text-gray-300 text-6xl pt-4" style="font-family: 'Shadows Into Light', cursive;">Me connecter</h1>
+  <h1 class="text-center text-gray-300 text-6xl pt-4" style="font-family: 'Shadows Into Light', cursive;">M'inscrire</h1>
   <form class="mt-4" method="POST">
     <div class="flex flex-col items-center justify-center lg:justify-start">
       <!-- email input -->
@@ -76,15 +76,15 @@ if (isset($_POST['valider'])) {
 
       <div class="text-center pb-8">
         <!-- voir si button à la place de input fonctionne -->
-        <input type="submit" name="valider" value="Se connecter" class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" />
+        <input type="submit" name="valider" value="M'inscrire" class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" />
       </div>
   </form>
-  <p class="text-gray-300">Si vous n'avez pas de compte, <a href="./inscription.php" class="text-orange-500">Inscrivez-vous ici !</a></p>
+  <p class="text-gray-300">Si vous avez un compte, <a href="./login.php" class="text-orange-500">Connectez-vous ici !</a></p>
   <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 
 </body>
 
 </html>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 </style>

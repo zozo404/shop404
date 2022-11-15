@@ -1,4 +1,5 @@
 <?php
+session_start();
 // on exige le ficher commande
 require("config/commandes.php");
 
