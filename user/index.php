@@ -1,9 +1,16 @@
 <?php
 session_start();
 // on exige le ficher commande
-require("config/commandes.php");
+require("../config/commandes.php");
 
 $Produits = afficher();
+
+// double vérification 1. si elle existe mais c'est faux -> redirection 2. si elle existe mais c'est vide -> redirection
+if (!isset($_SESSION['user001']) || empty($_SESSION['user001'])) {
+    header("Location: ../login.php");
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +30,7 @@ $Produits = afficher();
     <nav class=" border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 sticky top-0">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="index.php" class="flex items-center">
-                <img src="imgs/ballon-dor.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
+                <img src="../imgs/ballon-dor.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Shop 404</span>
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -38,7 +45,7 @@ $Produits = afficher();
                         <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" aria-current="page">Home</a>
                     </li>
                 </ul>
-                <a class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" href="login.php">Se connecter</a>
+                <a class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" href="deconnexion.php">Se déconnecter</a>
             </div>
         </div>
     </nav>
@@ -47,7 +54,7 @@ $Produits = afficher();
         <?php foreach ($Produits as $produit) : ?>
             <div class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-2">
                 <a href="#" class="flex justify-center">
-                    <img class="w-11/12" src="./imgs/<?= $produit->image ?>" alt="<?= $produit->alt ?>" />
+                    <img class="w-11/12" src="../imgs/<?= $produit->image ?>" alt="<?= $produit->alt ?>" />
                 </a>
                 <div class="p-5">
                     <a href="#">
