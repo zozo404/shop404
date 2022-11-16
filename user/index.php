@@ -6,7 +6,9 @@ require("../config/commandes.php");
 $Produits = afficher();
 
 // double vérification 1. si elle existe mais c'est faux -> redirection 2. si elle existe mais c'est vide -> redirection
-
+if (!isset($_SESSION['user001']) || empty($_SESSION['user001'])) {
+    header("Location: ../login.php");
+}
 
 
 ?>
@@ -20,7 +22,6 @@ $Produits = afficher();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop 404</title>
     <link rel="icon" type="image/x-icon" href="imgs/ballon-dor.png">
-    <link href="dist/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
