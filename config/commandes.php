@@ -42,6 +42,22 @@ function getAdmin($email, $password)
         $req->closeCursor();
     }
 }
+function getUser($email, $password)
+{
+    if (require("connexion.php")) {
+        $req = $access->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
+        $req->execute(array($email, $password));
+        
+        if ($req->rowCount() == 1) {
+            $data = $req->fetch();
+            return $data;
+        } else {
+            return false;
+        }
+        
+        $req->closeCursor();
+    }
+}
 function addUser($email, $password)
 {
     if (require("connexion.php")) {
@@ -61,22 +77,6 @@ function addUser($email, $password)
             
             $req->closeCursor();
         }
-    }
-}
-function getUser($email, $password)
-{
-    if (require("connexion.php")) {
-        $req = $access->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
-        $req->execute(array($email, $password));
-
-        if ($req->rowCount() == 1) {
-            $data = $req->fetch();
-            return $data;
-        } else {
-            return false;
-        }
-
-        $req->closeCursor();
     }
 }
 function ajouter($nom, $image, $alt, $prix, $desc)
